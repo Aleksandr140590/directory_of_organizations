@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "directory of organizations"
+version = "0.0.1"
+description = ""
+authors = ["Alexandr Fedorovich <alex2717@yandex.kz>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.6"
+uvicorn = {version = "0.17.6", extras = ["standard"]}
+pydantic-settings = "^2.7.1"
+alembic = "^1.14.0"
+pydantic = "^2.10.5"
+pre-commit = "^4.0.1"
+black = "^24.10.0"
+sqlalchemy = "^2.0.36"
+psycopg = "^3.2.3"
+psycopg-binary = "^3.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
