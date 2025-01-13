@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 from starlette.responses import JSONResponse
 
+from app.core.auth import get_api_key
 from app.core.db import get_async_session
 from app.crud.organizations import organizations_crud
 from app.schemas.organizations import OrganizationBase
@@ -15,7 +16,8 @@ router = APIRouter()
 
 @router.get(
     "/search/point1={latitude1},{longitude1}&point2={latitude2},{longitude2}",
-    response_model=List[OrganizationBase],
+    response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)]
+
 )
 async def get_organizations_in_selected_area(
     latitude1: Decimal,
@@ -56,7 +58,7 @@ async def get_organizations_in_selected_area(
 
 
 @router.get(
-    "/search/activity={activity_id}", response_model=List[OrganizationBase]
+    "/search/activity={activity_id}", response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)]
 )
 async def get_organizations_by_activities(
     activity_id: int, session: AsyncSession = Depends(get_async_session)
@@ -72,7 +74,7 @@ async def get_organizations_by_activities(
     return organizations
 
 
-@router.get("/search/name={name}", response_model=List[OrganizationBase])
+@router.get("/search/name={name}", response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)])
 async def get_organizations_by_activities(
     name: str, session: AsyncSession = Depends(get_async_session)
 ):
@@ -85,7 +87,7 @@ async def get_organizations_by_activities(
     return organizations
 
 
-@router.get("/{organization_id}", response_model=OrganizationBase)
+@router.get("/{organization_id}", response_model=OrganizationBase, dependencies=[Depends(get_api_key)])
 async def get_organizations_in_building(
     organization_id: int, session: AsyncSession = Depends(get_async_session)
 ):
