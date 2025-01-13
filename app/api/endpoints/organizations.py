@@ -16,8 +16,8 @@ router = APIRouter()
 
 @router.get(
     "/search/point1={latitude1},{longitude1}&point2={latitude2},{longitude2}",
-    response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)]
-
+    response_model=List[OrganizationBase],
+    dependencies=[Depends(get_api_key)],
 )
 async def get_organizations_in_selected_area(
     latitude1: Decimal,
@@ -58,7 +58,9 @@ async def get_organizations_in_selected_area(
 
 
 @router.get(
-    "/search/activity={activity_id}", response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)]
+    "/search/activity={activity_id}",
+    response_model=List[OrganizationBase],
+    dependencies=[Depends(get_api_key)],
 )
 async def get_organizations_by_activities(
     activity_id: int, session: AsyncSession = Depends(get_async_session)
@@ -74,7 +76,11 @@ async def get_organizations_by_activities(
     return organizations
 
 
-@router.get("/search/name={name}", response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)])
+@router.get(
+    "/search/name={name}",
+    response_model=List[OrganizationBase],
+    dependencies=[Depends(get_api_key)],
+)
 async def get_organizations_by_activities(
     name: str, session: AsyncSession = Depends(get_async_session)
 ):
@@ -87,7 +93,11 @@ async def get_organizations_by_activities(
     return organizations
 
 
-@router.get("/{organization_id}", response_model=OrganizationBase, dependencies=[Depends(get_api_key)])
+@router.get(
+    "/{organization_id}",
+    response_model=OrganizationBase,
+    dependencies=[Depends(get_api_key)],
+)
 async def get_organizations_in_building(
     organization_id: int, session: AsyncSession = Depends(get_async_session)
 ):

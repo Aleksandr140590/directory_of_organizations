@@ -11,7 +11,11 @@ from app.schemas.organizations import OrganizationBase
 router = APIRouter()
 
 
-@router.get("/{building_id}", response_model=List[OrganizationBase], dependencies=[Depends(get_api_key)])
+@router.get(
+    "/{building_id}",
+    response_model=List[OrganizationBase],
+    dependencies=[Depends(get_api_key)],
+)
 async def get_organizations_in_building(
     building_id: int, session: AsyncSession = Depends(get_async_session)
 ):
